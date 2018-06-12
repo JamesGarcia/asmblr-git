@@ -1,0 +1,11 @@
+;TEST ASSEMBLY PROGRAM
+MOV 1 a
+mov 9 5
+nop
+imm
+mov a 4
+mov a 5
+ind
+rev
+mov 0 6 ; testing comments
+hlt
