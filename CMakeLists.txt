@@ -3,4 +3,4 @@ project(archsim C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(archsim src/main.c src/asmblr.c src/asmblr.h src/asmsim.c src/asmsim.h src/lib/args.c src/lib/args.h src/lib/deque.c src/lib/deque.h)
+add_executable(archsim src/main.c src/asmblr.c src/asmblr.h src/asmsim.c src/asmsim.h src/lib/args.c src/lib/args.h src/lib/queue.c src/lib/queue.h)
