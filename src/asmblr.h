@@ -5,6 +5,6 @@
 #ifndef ARCHSIM_ASMBLR_H
 #define ARCHSIM_ASMBLR_H
 
-#endif //ARCHSIM_ASMBLR_H
+int assemble_(FILE *src, FILE *dst);
 
-int launch_asmblr(const char *input, const char *output);
+#endif //ARCHSIM_ASMBLR_H

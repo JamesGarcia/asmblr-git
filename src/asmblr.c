@@ -1,19 +1,9 @@
-//
-// Created by garci on 6/4/2018.
-//
-
-#include "asmblr.h"
-
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <mem.h>
+#include <stdlib.h>
 #include <ctype.h>
-#include <string.h>
-#include <errno.h>
-#include <assert.h>
-#include <unistd.h>
-
-
+#include "asmblr.h"
 
 #define COMMENT_START ';'
 #define COMMENT_END   '\n'
@@ -58,8 +48,9 @@ TOKEN *newToken(char *str){
         tok->payload = HLT;
     }else{
         char **str_end = malloc(sizeof(char*));
-        tok->payload = (OPCODE) strtol(str, str_end, 16);
-        assert(errno != ERANGE && 0 != strcmp(str, *str_end));
+        long code = strtol(str, str_end, 16);
+        assert(strcmp(str, *str_end) && 0 <= code && code > 16);
+        tok->payload = (OPCODE) code;
         free(str_end);
     }
     free(str);
@@ -110,12 +101,14 @@ TOKEN *getToken(FILE *src){
     }
 }
 
+
+
 /**
  *
  * @param src readable source file to be assembled
  * @param dst writeable destination file for binary
  */
-int parse(FILE *src, FILE *dst) {
+int assemble_(FILE *src, FILE *dst) {
     TOKEN *tok;
     OPCODE ins;
     while ((tok = getToken(src))) {
@@ -147,11 +140,13 @@ int parse(FILE *src, FILE *dst) {
     return 0;
 }
 
+/*
 int launch_asmblr(const char *input, const char *output){
     FILE *src, *dst;
     src = fopen(input, "r");
-    dst = fopen(output, "w+");
+    dst = fopen(output ? output : "out.bc", "w+");
     assert(src);
     assert(dst);
-    return parse(src, dst);
+    return assemble(src, dst);
 }
+*/

@@ -9,9 +9,13 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <malloc.h>
 
 #include "asmblr.h"
 #include "asmsim.h"
+#include "lib/args.h"
+#include "lib/fixed_dict.h"
+#include "client.c"
 
 /*
 int main(int argc, char *argv[]){
@@ -38,6 +42,30 @@ int main(int argc, char *argv[]){
 
 #define STREQ(a, b) (!strcmp((a), (b)))
 #define STRNEQ(a, b) (strcmp((a), (b)))
+
+struct settings_h{
+
+};
+
+
+
+int remain(int argc, char **argv){
+    argstream *args = new_argstream(argc, argv);
+    fixed_dict *dict = dict_new();
+    settings *state = malloc(sizeof(settings));
+    char *opt;
+    while((opt=next_arg(args))){
+        arg_handler *f = dict_lookup(dict, opt);
+        if(f){
+            (*f)(args, state);
+        }else{
+            fprintf(stderr, "unknown option %s\n", opt);
+            return 1;
+        }
+    }
+
+    return 0;
+}
 
 int main(int argc, char **argv){
     assert(argc > 2);

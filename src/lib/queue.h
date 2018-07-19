@@ -2,7 +2,7 @@
 #ifndef ARCHSIM_QUEUE_H
 #define ARCHSIM_QUEUE_H
 
-#define NULL (void*)0;
+#define NULL (void*)0
 typedef void* elem;
 typedef void elem_free_fn(elem data);
 
